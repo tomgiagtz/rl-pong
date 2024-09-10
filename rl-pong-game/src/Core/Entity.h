@@ -4,7 +4,8 @@ class Entity {
 public:
     virtual ~Entity() = default;
     virtual void Start() = 0;
-    virtual void Update(float _deltaTime) = 0;
+    //pure virtual isn't properly overrided?
+    virtual void Update(float _deltaTime) {}
 
 
     bool IsActive() const {
@@ -19,7 +20,7 @@ public:
         return shouldDestroy;
     }
 
-    virtual void Render();
+    virtual void Render() = 0;
 
     //marks entity for destruction at end of update loop in EntityManager
     void Destroy() {
@@ -27,7 +28,7 @@ public:
         shouldDestroy = true;
     }
 
-private:
+protected:
     bool active = true;
     bool shouldDestroy = false;
 };

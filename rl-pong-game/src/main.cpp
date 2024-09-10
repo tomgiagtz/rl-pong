@@ -71,9 +71,10 @@ int main() {
     GameLoop gameLoop = GameLoop();
     // EntityManager::Instance().RegisterEntity()
     while (gameLoop.IsRunning()) {
-        gameLoop.Update();
+        gameLoop.Update(GetFrameTime());
+        gameLoop.Render();
     }
-
+    gameLoop.Destroy();
 
     CloseWindow();
     return 0;

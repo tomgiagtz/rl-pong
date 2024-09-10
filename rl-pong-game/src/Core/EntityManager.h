@@ -7,7 +7,7 @@ class EntityManager {
 public:
     void UpdateEntities(float _deltaTime);
     void RenderEntities();
-    void RegisterEntity(Entity& _entity);
+    void RegisterEntity(Entity* _entity);
 
 
     static EntityManager& Instance() {
