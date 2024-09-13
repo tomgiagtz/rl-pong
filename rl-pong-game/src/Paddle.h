@@ -4,12 +4,24 @@
 #include "raylib.h"
 #include "Core/Entity.h"
 
+enum PlayerType {
+    PLAYER1,
+    PLAYER2,
+    COM
+};
+
 class Paddle : public Entity {
+
+public:
+    static constexpr int HEIGHT = 30;
+    static constexpr int WIDTH = 120;
+
 private:
     Vector2 position = {0, 0};
-    int width = 120;
-    int height = 30;
+
+
     float speed = 10.0f;
+    PlayerType playerType;
 
 public:
     void Start() override;
@@ -18,9 +30,16 @@ public:
 
     void Render() override;
 
-    Paddle(Vector2 _position):
-        position(_position) {
+    void SetPosition(Vector2 _position) {
+        position = _position;
+    }
+
+    Paddle(Vector2 _position = {0.f, 0.f}, PlayerType _playerType = PLAYER1):
+        position(_position), playerType(_playerType) {
         std::cout << "shouldDestroy: " << WillDestroy() << "\n";
     }
+
+    Paddle(const Paddle& other) :
+        position(other.position), speed(other.speed), playerType(other.playerType) {}
 
 };

@@ -1,9 +1,16 @@
 ﻿#pragma once
+#include <iostream>
+#include <ostream>
 
 class Entity {
 public:
     virtual ~Entity() = default;
-    virtual void Start() = 0;
+
+    virtual void Start() {
+        isInitialized = true;
+        std::cout << "Entity started" << std::endl;
+    }
+
     //pure virtual isn't properly overrided?
     virtual void Update(float _deltaTime) {}
 
@@ -20,7 +27,7 @@ public:
         return shouldDestroy;
     }
 
-    virtual void Render() = 0;
+    virtual void Render() {}
 
     //marks entity for destruction at end of update loop in EntityManager
     void Destroy() {
@@ -28,7 +35,16 @@ public:
         shouldDestroy = true;
     }
 
+    bool IsInitialized() {
+        return isInitialized;
+    };
+
+    void SetIsInitialized(bool _isInitialized) {
+        isInitialized = _isInitialized;
+    }
+
 protected:
     bool active = true;
     bool shouldDestroy = false;
+    bool isInitialized = false;
 };

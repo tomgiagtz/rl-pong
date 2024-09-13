@@ -18,4 +18,5 @@ public:
 private:
     EntityManager() = default;
     std::vector<Entity*> entities;
+    unsigned numEntities;
 };

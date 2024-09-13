@@ -26,7 +26,13 @@ void EntityManager::UpdateEntities(const float _deltaTime) {
 
 void EntityManager::RenderEntities() {
     std::cout << "Rendering Entities" << '\n';
-    for (Entity* entity : entities) {
+
+
+    for (unsigned i = 0; i < numEntities; ++i) {
+        Entity* entity = entities[i];
+        if (entity == nullptr) {
+            std::cout << "BadOne" << '\n';
+        }
         if (entity->IsActive() && !entity->WillDestroy()) {
             entity->Render();
         }
@@ -35,5 +41,6 @@ void EntityManager::RenderEntities() {
 
 void EntityManager::RegisterEntity(Entity* _entity) {
     entities.push_back(_entity);
+    numEntities++;
     _entity->Start();
 }

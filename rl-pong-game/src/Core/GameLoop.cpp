@@ -5,13 +5,20 @@
 #include "Paddle.h"
 #include "raylib.h"
 
+#define SCREENWIDTH 1280
+#define SCREENHEIGHT 800
+
 
 GameLoop::GameLoop() {
     SetTargetFPS(60);
-    InitWindow(1280, 800, "rl-pong");
+    InitWindow(SCREENWIDTH, SCREENHEIGHT, "rl-pong");
 
-    pongLevel = PongLevel();
-    entityManager = &EntityManager::Instance();
+    pongLevel.Start();
+
+    // player1.SetPosition({50, 50});
+    // player2.SetPosition({50, 150});
+    // entityManager->RegisterEntity(&player1);
+    // entityManager->RegisterEntity(&player2);
 }
 
 void GameLoop::Render() {

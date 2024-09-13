@@ -6,8 +6,10 @@
 class GameLoop {
 private:
     bool isRunning = true;
-    EntityManager* entityManager;
-    PongLevel pongLevel;
+    EntityManager* entityManager = &EntityManager::Instance();
+    PongLevel pongLevel = PongLevel();
+    Paddle player1 = Paddle({100.f, 50.f}, PLAYER1);
+    Paddle player2 = Paddle({100.f, 150.f}, PLAYER2);
 
 public:
     GameLoop();

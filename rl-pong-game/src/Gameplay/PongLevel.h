@@ -6,12 +6,13 @@ class PongLevel {
 
 private:
     //local to pong
-    Paddle paddle;
+    Paddle player1 = Paddle({0.f, 0.f}, PLAYER1);
+    Paddle player2 = Paddle({0.f, 0.f}, PLAYER2);
     //level deserves an interface
 public:
-    PongLevel():
-        paddle(Paddle(Vector2{0.0f, 0.0f})) {
-        EntityManager::Instance().RegisterEntity(&paddle);
+    PongLevel() {
+        EntityManager::Instance().RegisterEntity(&player1);
+        EntityManager::Instance().RegisterEntity(&player2);
     }
 
     //
@@ -19,11 +20,18 @@ public:
     // void LoadLevel() {}
 
     void UnloadLevel() {
-        paddle.Destroy();
+        player1.Destroy();
+        player2.Destroy();
     }
 
+    void Start() {
+        int yPos1 = 50;
+        int yPos2 = GetScreenHeight() - 50 - Paddle::HEIGHT;
+        int xPos = 3 * GetScreenWidth() / 2;
 
-
+        player1.SetPosition({float(xPos), float(yPos1)});
+        player2.SetPosition({float(xPos), float(yPos2)});
+    }
 
 
 
