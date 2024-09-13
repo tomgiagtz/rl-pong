@@ -27,7 +27,8 @@ public:
     void Start() {
         int yPos1 = 50;
         int yPos2 = GetScreenHeight() - 50 - Paddle::HEIGHT;
-        int xPos = 3 * GetScreenWidth() / 2;
+        // 3/4 of the way across the screen
+        int xPos = (GetScreenWidth() / 4 * 3) - (Paddle::WIDTH / 2);
 
         player1.SetPosition({float(xPos), float(yPos1)});
         player2.SetPosition({float(xPos), float(yPos2)});

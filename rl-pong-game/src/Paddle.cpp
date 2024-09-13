@@ -6,12 +6,11 @@
 
 void Paddle::Start() {
     Entity::Start();
-    std::cout << "Paddle started" << std::endl;
+    // std::cout << "Paddle started" << std::endl;
     // Implementation for starting the Paddle
 }
 
 void Paddle::Update(float _deltaTime) {
-    // std::cout << "UPDATE HOLY Entity \n";
     // Implementation for updating the Paddle with delta time
     if (playerType == PLAYER1 && IsKeyDown(KEY_RIGHT)) {
         position.x += 1.0f * speed;
@@ -32,6 +31,5 @@ void Paddle::Update(float _deltaTime) {
 
 void Paddle::Render() {
     // Implementation for rendering the Paddle
-    std::cout << "Rendering Entity \n";
     DrawRectangle(position.x, position.y, WIDTH, HEIGHT, WHITE);
 }

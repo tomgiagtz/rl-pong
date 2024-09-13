@@ -36,7 +36,7 @@ public:
 
     Paddle(Vector2 _position = {0.f, 0.f}, PlayerType _playerType = PLAYER1):
         position(_position), playerType(_playerType) {
-        std::cout << "shouldDestroy: " << WillDestroy() << "\n";
+        // std::cout << "shouldDestroy: " << WillDestroy() << "\n";
     }
 
     Paddle(const Paddle& other) :

@@ -8,7 +8,6 @@ public:
 
     virtual void Start() {
         isInitialized = true;
-        std::cout << "Entity started" << std::endl;
     }
 
     //pure virtual isn't properly overrided?

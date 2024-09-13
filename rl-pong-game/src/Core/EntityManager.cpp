@@ -1,11 +1,10 @@
 ﻿#include "EntityManager.h"
 
-#include <iostream>
 
 void EntityManager::UpdateEntities(const float _deltaTime) {
     for (Entity* entity : entities) {
-        std::cout << (entity->WillDestroy() ? " true" : " false") << "\n";
-        std::cout << "active" << (entity->IsActive() ? " true" : " false") << "\n";
+        // std::cout << (entity->WillDestroy() ? " true" : " false") << "\n";
+        // std::cout << "active" << (entity->IsActive() ? " true" : " false") << "\n";
         if (entity != nullptr && entity->IsActive() && !entity->WillDestroy()) {
             entity->Update(_deltaTime);
         }
@@ -25,13 +24,11 @@ void EntityManager::UpdateEntities(const float _deltaTime) {
 
 
 void EntityManager::RenderEntities() {
-    std::cout << "Rendering Entities" << '\n';
-
-
     for (unsigned i = 0; i < numEntities; ++i) {
         Entity* entity = entities[i];
         if (entity == nullptr) {
-            std::cout << "BadOne" << '\n';
+            // std::cout << "BadOne" << '\n';
+            throw std::runtime_error("Null Entity During Render");
         }
         if (entity->IsActive() && !entity->WillDestroy()) {
             entity->Render();
