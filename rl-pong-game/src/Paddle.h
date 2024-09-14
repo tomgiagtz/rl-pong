@@ -13,14 +13,14 @@ enum PlayerType {
 class Paddle : public Entity {
 
 public:
-    static constexpr int HEIGHT = 30;
-    static constexpr int WIDTH = 120;
+    static constexpr int HEIGHT = 120;
+    static constexpr int WIDTH = 30;
 
 private:
     Vector2 position = {0, 0};
 
 
-    float speed = 10.0f;
+    float speed = 50.0f;
     PlayerType playerType;
 
 public:

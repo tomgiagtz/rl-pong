@@ -25,15 +25,18 @@ public:
     }
 
     void Start() {
-        int yPos1 = 50;
-        int yPos2 = GetScreenHeight() - 50 - Paddle::HEIGHT;
+        int xPos1 = 50;
+        int xPos2 = GetScreenWidth() - 50 - Paddle::WIDTH;
         // 3/4 of the way across the screen
-        int xPos = (GetScreenWidth() / 4 * 3) - (Paddle::WIDTH / 2);
+        int yPos = (GetScreenHeight() / 2) - (Paddle::HEIGHT / 2);
 
-        player1.SetPosition({float(xPos), float(yPos1)});
-        player2.SetPosition({float(xPos), float(yPos2)});
+        player1.SetPosition({float(xPos1), float(yPos)});
+        player2.SetPosition({float(xPos2), float(yPos)});
     }
 
-
+    void Render() {
+        int width = 20;
+        DrawRectangle((GetScreenWidth() / 2) - width, 0, width, GetScreenHeight(), WHITE);
+    }
 
 };

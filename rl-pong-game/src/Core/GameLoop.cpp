@@ -23,10 +23,15 @@ GameLoop::GameLoop() {
 
 void GameLoop::Render() {
     // drawing
+
     BeginDrawing();
     ClearBackground(GetColor(0x1b1b1b1b));
     DrawText("Hello", 200, 200, 20,WHITE);
     entityManager->RenderEntities();
+
+
+    // static render of level
+    pongLevel.Render();
     EndDrawing();
 }
 

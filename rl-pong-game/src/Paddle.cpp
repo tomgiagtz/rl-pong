@@ -12,21 +12,23 @@ void Paddle::Start() {
 
 void Paddle::Update(float _deltaTime) {
     // Implementation for updating the Paddle with delta time
-    if (playerType == PLAYER1 && IsKeyDown(KEY_RIGHT)) {
-        position.x += 1.0f * speed;
+
+    int calcSpeed = 10 * speed * _deltaTime;
+    if (playerType == PLAYER2 && IsKeyDown(KEY_UP)) {
+        position.y -= calcSpeed;
     }
-    if (playerType == PLAYER1 && IsKeyDown(KEY_LEFT)) {
-        position.x -= 1.0f * speed;
+    if (playerType == PLAYER2 && IsKeyDown(KEY_DOWN)) {
+        position.y += calcSpeed;
     }
 
-    if (playerType == PLAYER2 && IsKeyDown(KEY_D)) {
-        position.x += 1.0f * speed;
+    if (playerType == PLAYER1 && IsKeyDown(KEY_W)) {
+        position.y -= calcSpeed;
     }
-    if (playerType == PLAYER2 && IsKeyDown(KEY_A)) {
-        position.x -= 1.0f * speed;
+    if (playerType == PLAYER1 && IsKeyDown(KEY_S)) {
+        position.y += calcSpeed;
     }
 
-    position.x = Clamp(position.x, float(GetScreenWidth() / 2.f), float(GetScreenWidth() - WIDTH));
+    position.y = Clamp(position.y, 0, float(GetScreenHeight() - HEIGHT));
 }
 
 void Paddle::Render() {
