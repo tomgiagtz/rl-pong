@@ -4,10 +4,10 @@
 #include "raylib.h"
 #include "Core/Entity.h"
 
-enum PlayerType {
-    PLAYER1,
-    PLAYER2,
-    COM
+enum ControlType {
+    Player1,
+    Player2,
+    Com
 };
 
 class Paddle : public Entity {
@@ -21,7 +21,7 @@ private:
 
 
     float speed = 50.0f;
-    PlayerType playerType;
+    ControlType playerType;
 
 public:
     void Start() override;
@@ -29,12 +29,14 @@ public:
     void Update(float _deltaTime) override;
 
     void Render() override;
+    Rectangle GetRect();
+    Vector2 GetCenter();
 
     void SetPosition(Vector2 _position) {
         position = _position;
     }
 
-    Paddle(Vector2 _position = {0.f, 0.f}, PlayerType _playerType = PLAYER1):
+    Paddle(Vector2 _position = {0.f, 0.f}, ControlType _playerType = Player1):
         position(_position), playerType(_playerType) {
         // std::cout << "shouldDestroy: " << WillDestroy() << "\n";
     }

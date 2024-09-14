@@ -36,8 +36,21 @@ void EntityManager::RenderEntities() {
     }
 }
 
-void EntityManager::RegisterEntity(Entity* _entity) {
+
+// void EntityManager::RegisterEntity(Entity* _entity) {
+//     entities.push_back(_entity);
+//     numEntities++;
+//
+//
+//     _entity->Start();
+// }
+//
+// }
+
+void EntityManager::RegisterEntity(Entity* _entity, bool _manualActivate) {
     entities.push_back(_entity);
     numEntities++;
-    _entity->Start();
+    if (!_manualActivate) {
+        _entity->Start();
+    }
 }

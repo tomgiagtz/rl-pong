@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include "Paddle.h"
 #include "raylib.h"
 
 #define SCREENWIDTH 1280
@@ -14,11 +13,6 @@ GameLoop::GameLoop() {
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "rl-pong");
 
     pongLevel.Start();
-
-    // player1.SetPosition({50, 50});
-    // player2.SetPosition({50, 150});
-    // entityManager->RegisterEntity(&player1);
-    // entityManager->RegisterEntity(&player2);
 }
 
 void GameLoop::Render() {

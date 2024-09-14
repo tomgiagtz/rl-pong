@@ -14,17 +14,17 @@ void Paddle::Update(float _deltaTime) {
     // Implementation for updating the Paddle with delta time
 
     int calcSpeed = 10 * speed * _deltaTime;
-    if (playerType == PLAYER2 && IsKeyDown(KEY_UP)) {
+    if (playerType == Player2 && IsKeyDown(KEY_UP)) {
         position.y -= calcSpeed;
     }
-    if (playerType == PLAYER2 && IsKeyDown(KEY_DOWN)) {
+    if (playerType == Player2 && IsKeyDown(KEY_DOWN)) {
         position.y += calcSpeed;
     }
 
-    if (playerType == PLAYER1 && IsKeyDown(KEY_W)) {
+    if (playerType == Player1 && IsKeyDown(KEY_W)) {
         position.y -= calcSpeed;
     }
-    if (playerType == PLAYER1 && IsKeyDown(KEY_S)) {
+    if (playerType == Player1 && IsKeyDown(KEY_S)) {
         position.y += calcSpeed;
     }
 
@@ -33,5 +33,15 @@ void Paddle::Update(float _deltaTime) {
 
 void Paddle::Render() {
     // Implementation for rendering the Paddle
-    DrawRectangle(position.x, position.y, WIDTH, HEIGHT, WHITE);
+    DrawRectangleRec(this->GetRect(), WHITE);
+}
+
+Rectangle Paddle::GetRect() {
+    return Rectangle({position.x, position.y, WIDTH, HEIGHT});
+}
+
+
+Vector2 Paddle::GetCenter() {
+    // return position + {width, height} / 2; but ugly
+    return Vector2Add(position, Vector2Scale({Paddle::WIDTH, Paddle::HEIGHT}, 2));
 }
