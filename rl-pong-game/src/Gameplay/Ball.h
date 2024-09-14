@@ -9,11 +9,11 @@ private:
     Vector2 position;
     Vector2 velocity = {1, 0};
 
-    float speed = 300.f;
+    float speed = 500.f;
 
 public:
-    static constexpr int HEIGHT = 120;
-    static constexpr int WIDTH = 200;
+    static constexpr int HEIGHT = 20;
+    static constexpr int WIDTH = 20;
 
     void Start() override;
     void Update(float _deltaTime) override;

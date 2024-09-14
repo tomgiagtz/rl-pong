@@ -21,6 +21,7 @@ void Ball::Update(float _deltaTime) {
         velocity.y *= -1;
         break;
     case PADDLE:
+        velocity.x *= -1;
         break;
     case GOAL:
         velocity.x *= -1;
