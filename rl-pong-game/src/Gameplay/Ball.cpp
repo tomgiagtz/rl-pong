@@ -17,20 +17,18 @@ void Ball::Update(float _deltaTime) {
     }
 
     switch (CalcCollision()) {
-    case EDGE:
-        velocity.y *= -1;
-        break;
-    case PADDLE:
-        velocity.x *= -1;
-        break;
-    case GOAL:
-        velocity.x *= -1;
-        break;
-    case NONE:
-        break;
+        case EDGE:
+            velocity.y *= -1;
+            break;
+        case PADDLE:
+            velocity.x *= -1;
+            break;
+        case GOAL:
+            velocity.x *= -1;
+            break;
+        case NONE:
+            break;
     }
-
-
     // pos += vel * speed * deltaTime;
     position = Vector2Add(position, Vector2Scale(velocity, speed * _deltaTime));
 }
@@ -56,6 +54,7 @@ void Ball::Render() {
 }
 
 void Ball::Reset() {
-    velocity = Vector2Rotate(velocity, GetRandomValue(0, 360));
+    // velocity = Vector2Rotate(velocity, GetRandomValue(0, 360));
+    velocity = Vector2Normalize({1, 0.1});
     position = {GetScreenWidth() / 2.f, GetScreenHeight() / 2.f};
 }

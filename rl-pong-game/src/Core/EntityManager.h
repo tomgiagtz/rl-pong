@@ -2,10 +2,11 @@
 #include <vector>
 
 #include "Entity.h"
+#include "RectEntity.h"
 
 class EntityManager {
 public:
-    void UpdateEntities(float _deltaTime);
+    void UpdateEntities(float _deltaTime, std::vector<RectEntity*>* _colliderEntities);
     void RenderEntities();
     void RegisterEntity(Entity* _entity, bool _manualStart = false);
 
@@ -18,5 +19,7 @@ public:
 private:
     EntityManager() = default;
     std::vector<Entity*> entities;
+
+    std::vector<Entity*> collidingEntities;
     unsigned numEntities;
 };

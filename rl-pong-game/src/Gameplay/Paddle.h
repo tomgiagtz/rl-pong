@@ -2,26 +2,23 @@
 #include <iostream>
 
 #include "raylib.h"
-#include "Core/Entity.h"
+#include "Core/RectEntity.h"
 
 enum ControlType {
+    None,
     Player1,
     Player2,
     Com
 };
 
-class Paddle : public Entity {
+class Paddle : public RectEntity {
 
-public:
-    static constexpr int HEIGHT = 120;
-    static constexpr int WIDTH = 30;
+protected:
+
 
 private:
-    Vector2 position = {0, 0};
-
-
     float speed = 50.0f;
-    ControlType playerType;
+    ControlType controlType;
 
 public:
     void Start() override;
@@ -29,19 +26,17 @@ public:
     void Update(float _deltaTime) override;
 
     void Render() override;
-    Rectangle GetRect();
-    Vector2 GetCenter();
 
-    void SetPosition(Vector2 _position) {
-        position = _position;
+
+
+
+
+    Paddle(const Vector2 _position = {0.f, 0.f}, int _width = 20, int _height = 120, ControlType _playerType = Player1):
+        RectEntity(_position, _width, _height), controlType(_playerType) {
+        shouldCollide = true;
     }
 
-    Paddle(Vector2 _position = {0.f, 0.f}, ControlType _playerType = Player1):
-        position(_position), playerType(_playerType) {
-        // std::cout << "shouldDestroy: " << WillDestroy() << "\n";
-    }
-
-    Paddle(const Paddle& other) :
-        position(other.position), speed(other.speed), playerType(other.playerType) {}
+    Paddle(const Paddle& _other) :
+        RectEntity(_other.position, _other.width, _other.height), speed(_other.speed), controlType(_other.controlType) {}
 
 };

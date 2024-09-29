@@ -42,6 +42,11 @@ public:
         isInitialized = _isInitialized;
     }
 
+    //probably better to make this an interface
+    virtual bool HasCollision() {
+        return false;
+    }
+
 protected:
     bool active = true;
     bool shouldDestroy = false;

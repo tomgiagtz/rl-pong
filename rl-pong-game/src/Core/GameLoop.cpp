@@ -12,7 +12,7 @@ GameLoop::GameLoop() {
     SetTargetFPS(60);
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "rl-pong");
 
-    pongLevel.Start();
+    // pongLevel.Start();
 }
 
 void GameLoop::Render() {
@@ -25,12 +25,30 @@ void GameLoop::Render() {
 
 
     // static render of level
-    pongLevel.Render();
+    collisionTestLevel.Render();
     EndDrawing();
 }
 
+void GameLoop::CalcCollisions(std::vector<RectEntity*>* _collisionEntities) {
+    std::cout << "num colliders " << _collisionEntities->size() << std::endl;
+
+    RectEntity* entity = nullptr;
+    RectEntity* otherEntity = nullptr;
+    for (int i = 0; i < _collisionEntities->size(); i++) {
+        entity = _collisionEntities->at(i);
+
+        // start at i to prevent double checking
+        for (int j = i; j < _collisionEntities->size(); j++) {
+            otherEntity = _collisionEntities->at(j);
+            if (entity != otherEntity) {}
+        }
+    }
+}
+
 void GameLoop::Update(float _deltaTime = 0.0166666667f) {
-    entityManager->UpdateEntities(_deltaTime);
+    CalcCollisions(&colliderEntities);
+    colliderEntities.clear();
+    entityManager->UpdateEntities(_deltaTime, &colliderEntities);
     CheckExit();
 }
 
@@ -39,4 +57,6 @@ void GameLoop::CheckExit() {
 }
 
 // game destroy before window close
-void GameLoop::Destroy() {}
+void GameLoop::Destroy() {
+    collisionTestLevel.UnloadLevel();
+}

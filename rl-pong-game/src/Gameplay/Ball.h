@@ -1,14 +1,11 @@
 ﻿#pragma once
 #include "raylib.h"
 #include "Core/Entity.h"
+#include "Core/RectEntity.h"
 
 enum CollisionType { NONE, EDGE, PADDLE, GOAL };
 
-class Ball : public Entity {
-private:
-    Vector2 position;
-    Vector2 velocity = {1, 0};
-
+class Ball : public RectEntity {
     float speed = 500.f;
 
 public:
@@ -24,7 +21,10 @@ public:
     void Reset();
 
     Ball(Vector2 _position) :
-        position(_position) {}
+        RectEntity(_position, HEIGHT, WIDTH) {
+        shouldCollide = true;
+    };
+
 
 
 
