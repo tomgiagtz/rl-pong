@@ -13,6 +13,7 @@ GameLoop::GameLoop() {
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "rl-pong");
 
     // pongLevel.Start();
+    collisionTestLevel.Start();
 }
 
 void GameLoop::Render() {
@@ -39,7 +40,13 @@ void GameLoop::CalcCollisions(std::vector<RectEntity*>* _collisionEntities) {
         // start at i to prevent double checking
         for (int j = i; j < _collisionEntities->size(); j++) {
             otherEntity = _collisionEntities->at(j);
-            if (entity != otherEntity) {}
+            if (entity != otherEntity) {
+                if (RectEntity::CheckRectOverlap(entity, otherEntity)) {
+                    entity->OnCollision(otherEntity);
+                    otherEntity->OnCollision(entity);
+                    // std::cout << "collision" << std::endl;
+                }
+            }
         }
     }
 }

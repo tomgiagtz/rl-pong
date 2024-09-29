@@ -12,6 +12,8 @@ enum ControlType {
 };
 
 class Paddle : public RectEntity {
+public:
+    void OnCollision(RectEntity* _otherRect) override;
 
 protected:
 
@@ -21,15 +23,9 @@ private:
     ControlType controlType;
 
 public:
-    void Start() override;
-
     void Update(float _deltaTime) override;
 
-
-
-
-
-    Paddle(const Vector2 _position = {0.f, 0.f}, int _width = 20, int _height = 120, ControlType _playerType = Player1):
+    Paddle(const Vector2 _position, int _width = 20, int _height = 120, ControlType _playerType = Player1):
         RectEntity(_position, _width, _height), controlType(_playerType) {
         shouldCollide = true;
     }

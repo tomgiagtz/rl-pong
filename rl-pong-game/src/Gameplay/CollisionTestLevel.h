@@ -7,8 +7,8 @@ class CollisionTestLevel {
 
 private:
     //local to pong
-    Paddle rect1 = Paddle({0.f, 0.f}, 120, 120, None);
-    Paddle rect2 = Paddle({0.f, 0.f}, 120, 120, None);
+    Paddle rect1 = Paddle({480, 400}, 120, 120, Player1);
+    Paddle rect2 = Paddle({540, 200}, 120, 120, None);
 
     // Ball ball = Ball(Vector2{GetScreenWidth() / 2.f, GetScreenHeight() / 2.f});
     //level deserves an interface
@@ -31,9 +31,5 @@ public:
 
     void Start() {}
 
-    static void Render() {
-        int width = 20;
-        DrawRectangle((GetScreenWidth() / 2) - width, 0, width, GetScreenHeight(), WHITE);
-    }
-
+    static void Render() {};
 };

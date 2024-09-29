@@ -5,12 +5,8 @@
 #include "Core/RectEntity.h"
 
 
-void Paddle::Start() {
-    RectEntity::Start();
-
-
-    // std::cout << "Paddle started" << std::endl;
-    // Implementation for starting the Paddle
+void Paddle::OnCollision(RectEntity* _otherRect) {
+    SetColor(Color{255, 0, 0, 255});
 }
 
 void Paddle::Update(float _deltaTime) {
