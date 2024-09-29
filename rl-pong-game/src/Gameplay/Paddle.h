@@ -25,8 +25,6 @@ public:
 
     void Update(float _deltaTime) override;
 
-    void Render() override;
-
 
 
 

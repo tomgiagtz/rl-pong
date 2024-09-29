@@ -34,8 +34,3 @@ void Paddle::Update(float _deltaTime) {
 
     position.y = Clamp(position.y, 0, float(GetScreenHeight() - height));
 }
-
-void Paddle::Render() {
-    // Implementation for rendering the Paddle
-    DrawRectangleRec(this->GetRect(), WHITE);
-}

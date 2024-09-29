@@ -15,7 +15,6 @@ public:
     void Start() override;
     void Update(float _deltaTime) override;
     CollisionType CalcCollision();
-    void Render() override;
 
 
     void Reset();

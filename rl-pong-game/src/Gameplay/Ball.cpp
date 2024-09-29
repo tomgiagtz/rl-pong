@@ -47,12 +47,6 @@ CollisionType Ball::CalcCollision() {
     return NONE;
 }
 
-void Ball::Render() {
-    Entity::Render();
-
-    DrawRectangleV(position, {WIDTH, HEIGHT}, WHITE);
-}
-
 void Ball::Reset() {
     // velocity = Vector2Rotate(velocity, GetRandomValue(0, 360));
     velocity = Vector2Normalize({1, 0.1});

@@ -3,15 +3,19 @@
 #include "raylib.h"
 
 class RectEntity : public Entity {
+public:
+    void Render() override;
+
 protected:
     Vector2 position = {0, 0};
     Vector2 velocity = {0, 0};
     int width = 30;
     int height = 30;
 
-
+    bool shouldHighlight = false;
 
     bool shouldCollide = false;
+    bool isColliding = false;
 
 public:
     bool HasCollision() override {

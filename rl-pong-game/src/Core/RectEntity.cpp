@@ -2,6 +2,12 @@
 
 #include "raymath.h"
 
+void RectEntity::Render() {
+    Entity::Render();
+
+    DrawRectangleRec(GetRect(), shouldHighlight ? RED : WHITE);
+}
+
 Rectangle RectEntity::GetRect() {
     return {position.x, position.y, (float)width, (float)height};
 }
