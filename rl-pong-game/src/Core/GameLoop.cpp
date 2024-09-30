@@ -22,7 +22,7 @@ void GameLoop::Render() {
     BeginDrawing();
     ClearBackground(GetColor(0x1b1b1b1b));
     entityManager->RenderEntities();
-
+    DrawFPS(GetScreenWidth() - 95, 10);
 
     // static render of level
     // collisionTestLevel.Render();
