@@ -28,7 +28,7 @@ void Ball::Start() {
 
 void Ball::Update(float _deltaTime) {
     Entity::Update(_deltaTime);
-    if (IsKeyDown(KEY_R)) {
+    if (IsKeyPressed(KEY_R)) {
         Reset();
     }
     Edge boundsCollision = BoundsCollision();
@@ -50,6 +50,19 @@ Edge Ball::BoundsCollision() {
 
 void Ball::Reset() {
     // velocity = Vector2Rotate(velocity, GetRandomValue(0, 360));
-    velocity = Vector2Normalize({1.f, 0.1f});
-    position = {GetScreenWidth() / 2.f, GetScreenHeight() / 2.f};
+    // velocity = Vector2Normalize({1.f, 0.1f});
+    // position = {GetScreenWidth() / 2.f, GetScreenHeight() / 2.f};
+    RandomizeVelocity();
+    RandomizePosition();
+}
+
+void Ball::RandomizeVelocity() {
+    velocity = {0.f, 1.f};
+    velocity = Vector2Rotate(velocity, GetRandomValue(0, 360));
+}
+
+void Ball::RandomizePosition() {
+    float xpos = GetRandomValue(0, GetScreenWidth() - WIDTH);
+    float ypos = GetRandomValue(0, GetScreenHeight() - HEIGHT);
+    position = {xpos, ypos};
 }

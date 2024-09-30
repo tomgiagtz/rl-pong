@@ -3,21 +3,22 @@
 #include "../Levels/CollisionTestLevel.h"
 #include "Gameplay/Paddle.h"
 #include "../Levels/PongLevel.h"
+#include "Levels/ManyCollisionsTestLevel.h"
 
 class GameLoop {
 private:
     bool isRunning = true;
     EntityManager* entityManager = &EntityManager::Instance();
     // PongLevel pongLevel = PongLevel();
-    CollisionTestLevel collisionTestLevel = CollisionTestLevel();
-
+    // CollisionTestLevel collisionTestLevel = CollisionTestLevel();
+    ManyCollisionsTestLevel manyCollisionsTestLevel = ManyCollisionsTestLevel();
     std::vector<RectEntity*> colliderEntities;
 
 public:
     GameLoop();
 
     void Render();
-    void CalcCollisions(std::vector<RectEntity*>* _collisionEntities);
+    static void CalcCollisions(std::vector<RectEntity*>* _collisionEntities);
     // void Init();
     void Update(float _deltaTime);
     void CheckExit();

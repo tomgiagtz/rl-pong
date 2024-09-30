@@ -17,6 +17,8 @@ public:
 
     void OnCollisionBegin(RectEntity* _otherRect) override;
     void Reset();
+    void RandomizeVelocity();
+    void RandomizePosition();
 
     Ball(Vector2 _position) :
         RectEntity(_position, HEIGHT, WIDTH) {

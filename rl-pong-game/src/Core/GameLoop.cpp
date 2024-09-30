@@ -13,7 +13,7 @@ GameLoop::GameLoop() {
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "rl-pong");
 
     // pongLevel.Start();
-    collisionTestLevel.Start();
+    manyCollisionsTestLevel.Start();
 }
 
 void GameLoop::Render() {
@@ -25,7 +25,7 @@ void GameLoop::Render() {
 
 
     // static render of level
-    collisionTestLevel.Render();
+    // collisionTestLevel.Render();
     EndDrawing();
 }
 
@@ -65,5 +65,5 @@ void GameLoop::CheckExit() {
 
 // game destroy before window close
 void GameLoop::Destroy() {
-    collisionTestLevel.UnloadLevel();
+    manyCollisionsTestLevel.UnloadLevel();
 }
