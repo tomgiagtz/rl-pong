@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "EntityManager.h"
-#include "Gameplay/CollisionTestLevel.h"
+#include "../Levels/CollisionTestLevel.h"
 #include "Gameplay/Paddle.h"
-#include "Gameplay/PongLevel.h"
+#include "../Levels/PongLevel.h"
 
 class GameLoop {
 private:

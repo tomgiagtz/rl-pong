@@ -4,6 +4,22 @@
 
 
 
+void Ball::BounceOffEdge(Edge edge) {
+    if (edge == TOP || edge == BOTTOM) {
+        velocity.y *= -1;
+    }
+    if (edge == LEFT || edge == RIGHT) {
+        velocity.x *= -1;
+    }
+}
+
+void Ball::OnCollisionBegin(RectEntity* _otherRect) {
+    RectEntity::OnCollisionBegin(_otherRect);
+    Edge edge = GetClosestEdge(this, _otherRect);
+
+    BounceOffEdge(edge);
+}
+
 void Ball::Start() {
     Entity::Start();
     Reset();
@@ -15,40 +31,25 @@ void Ball::Update(float _deltaTime) {
     if (IsKeyDown(KEY_R)) {
         Reset();
     }
-
-    switch (CalcCollision()) {
-        case EDGE:
-            velocity.y *= -1;
-            break;
-        case PADDLE:
-            velocity.x *= -1;
-            break;
-        case GOAL:
-            velocity.x *= -1;
-            break;
-        case NONE:
-            break;
+    Edge boundsCollision = BoundsCollision();
+    if (boundsCollision != NONE) {
+        BounceOffEdge(boundsCollision);
     }
-    // pos += vel * speed * deltaTime;
+
     position = Vector2Add(position, Vector2Scale(velocity, speed * _deltaTime));
 }
 
 
-CollisionType Ball::CalcCollision() {
-    //check vertical boundary (EDGE)
-    if (position.y >= GetScreenHeight() - HEIGHT || position.y <= 0) {
-        return EDGE;
-    }
-    //check for Horizontal boundary (GOAL)
-    if (position.x >= GetScreenWidth() - WIDTH || position.x <= 0) {
-        return GOAL;
-    }
-    // check for PaddleCollision
+Edge Ball::BoundsCollision() {
+    if (position.y <= 0) return TOP;
+    if (position.y >= GetScreenHeight() - HEIGHT) return BOTTOM;
+    if (position.x <= 0) return LEFT;
+    if (position.x >= GetScreenWidth() - WIDTH) return RIGHT;
     return NONE;
 }
 
 void Ball::Reset() {
     // velocity = Vector2Rotate(velocity, GetRandomValue(0, 360));
-    velocity = Vector2Normalize({1, 0.1});
+    velocity = Vector2Normalize({1.f, 0.1f});
     position = {GetScreenWidth() / 2.f, GetScreenHeight() / 2.f};
 }

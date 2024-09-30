@@ -4,6 +4,15 @@
 #include "Entity.h"
 #include "raylib.h"
 
+
+enum Edge {
+    NONE,
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT
+};
+
 class RectEntity : public Entity {
 public:
     void Render() override;
@@ -41,6 +50,11 @@ public:
     Rectangle GetRect();
     Vector2 GetCenter();
 
+    float GetEdgeTop() { return position.y; }
+    float GetEdgeBottom() { return position.y + height; }
+    float GetEdgeLeft() { return position.x; }
+    float GetEdgeRight() { return position.x + width; }
+
     int GetWidth() const {
         return width;
     }
@@ -53,5 +67,7 @@ public:
         position(_position), width(_width), height(_height) {};
 
     static bool CheckRectOverlap(RectEntity* rect1, RectEntity* rect2);
+    static Edge GetClosestEdge(RectEntity* rect1, RectEntity* rect2);
+
 
 };

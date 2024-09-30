@@ -3,9 +3,8 @@
 #include "Core/Entity.h"
 #include "Core/RectEntity.h"
 
-enum CollisionType { NONE, EDGE, PADDLE, GOAL };
-
 class Ball : public RectEntity {
+private:
     float speed = 500.f;
 
 public:
@@ -14,9 +13,9 @@ public:
 
     void Start() override;
     void Update(float _deltaTime) override;
-    CollisionType CalcCollision();
+    Edge BoundsCollision();
 
-
+    void OnCollisionBegin(RectEntity* _otherRect) override;
     void Reset();
 
     Ball(Vector2 _position) :
@@ -24,7 +23,6 @@ public:
         shouldCollide = true;
     };
 
-
-
-
+private:
+    void BounceOffEdge(Edge edge);
 };
