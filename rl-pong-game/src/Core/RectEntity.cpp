@@ -8,6 +8,20 @@ void RectEntity::Render() {
     DrawRectangleRec(GetRect(), color);
 }
 
+void RectEntity::OnCollisionBegin(RectEntity* _otherRect) {
+    collidingEntities.insert(_otherRect);
+
+    SetColor(Color{255, 0, 0, 255});
+}
+
+void RectEntity::OnCollisionEnd(RectEntity* _otherRect) {
+    collidingEntities.erase(_otherRect);
+
+    if (collidingEntities.empty()) {
+        SetColor(Color{255, 255, 255, 255});
+    }
+}
+
 void RectEntity::SetColor(const Color& _color) {
     color = _color;
 }

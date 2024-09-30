@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <set>
+
 #include "Entity.h"
 #include "raylib.h"
 
@@ -8,6 +10,10 @@ public:
 
     virtual void OnCollision(RectEntity* _otherRect) {};
 
+    virtual void OnCollisionBegin(RectEntity* _otherRect);;
+
+    virtual void OnCollisionEnd(RectEntity* _otherRect);;
+
 protected:
     Vector2 position = {0, 0};
     Vector2 velocity = {0, 0};
@@ -16,14 +22,13 @@ protected:
 
     Color color = WHITE;
 
+    bool shouldCollide = false;
+    bool isColliding = false;
+    std::set<RectEntity*> collidingEntities;
+
 public:
     void SetColor(const Color& _color);
 
-protected:
-    bool shouldCollide = false;
-    bool isColliding = false;
-
-public:
     bool HasCollision() override {
         return shouldCollide;
     }

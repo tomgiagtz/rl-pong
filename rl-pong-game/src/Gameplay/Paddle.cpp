@@ -4,10 +4,14 @@
 #include "raymath.h"
 #include "Core/RectEntity.h"
 
-
-void Paddle::OnCollision(RectEntity* _otherRect) {
-    SetColor(Color{255, 0, 0, 255});
-}
+//
+// void Paddle::OnCollision(RectEntity* _otherRect) {
+//     SetColor(Color{255, 0, 0, 255});
+// }
+//
+// void Paddle::OnCollisionEnd(RectEntity* _otherRect) {
+//     SetColor(Color{255, 255, 255, 255});
+// }
 
 void Paddle::Update(float _deltaTime) {
     // Implementation for updating the Paddle with delta time

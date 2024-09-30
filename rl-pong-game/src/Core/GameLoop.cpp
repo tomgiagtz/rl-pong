@@ -30,21 +30,22 @@ void GameLoop::Render() {
 }
 
 void GameLoop::CalcCollisions(std::vector<RectEntity*>* _collisionEntities) {
-    std::cout << "num colliders " << _collisionEntities->size() << std::endl;
+    // std::cout << "num colliders " << _collisionEntities->size() << std::endl;
 
     RectEntity* entity = nullptr;
     RectEntity* otherEntity = nullptr;
     for (int i = 0; i < _collisionEntities->size(); i++) {
         entity = _collisionEntities->at(i);
-
-        // start at i to prevent double checking
+        // starting at i preventing double counts
         for (int j = i; j < _collisionEntities->size(); j++) {
             otherEntity = _collisionEntities->at(j);
             if (entity != otherEntity) {
                 if (RectEntity::CheckRectOverlap(entity, otherEntity)) {
-                    entity->OnCollision(otherEntity);
-                    otherEntity->OnCollision(entity);
-                    // std::cout << "collision" << std::endl;
+                    entity->OnCollisionBegin(otherEntity);
+                    otherEntity->OnCollisionBegin(entity);
+                } else {
+                    entity->OnCollisionEnd(otherEntity);
+                    otherEntity->OnCollisionEnd(entity);
                 }
             }
         }

@@ -12,10 +12,6 @@ enum ControlType {
 };
 
 class Paddle : public RectEntity {
-public:
-    void OnCollision(RectEntity* _otherRect) override;
-
-protected:
 
 
 private:
