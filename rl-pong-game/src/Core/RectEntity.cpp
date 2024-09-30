@@ -40,13 +40,15 @@ Vector2 RectEntity::GetCenter() {
     return Vector2Add(position, Vector2Scale({(float)width, (float)height}, 2));
 }
 
-bool RectEntity::CheckRectOverlap(RectEntity* rect1, RectEntity* rect2) {
-    // positions are top left corner
-    //   left edge = position.x
-    //  right edge = position.x + width
-    //    top edge = position.y
-    // bottom edge = position.y + height
+void RectEntity::RandomizePosition() {
+    int xpos = GetRandomValue(0, GetScreenWidth() - width);
+    int ypos = GetRandomValue(0, GetScreenHeight() - height);
+    position = {(float)xpos, (float)ypos};
+}
 
+//> collision functions
+
+bool RectEntity::CheckRectOverlap(RectEntity* rect1, RectEntity* rect2) {
     if (rect1->GetEdgeRight() >= rect2->GetEdgeLeft() &&  //rect1 right side past rect2 left side
         rect1->GetEdgeLeft() <= rect2->GetEdgeRight() &&  //rect1 left past rect 2 right
         rect1->GetEdgeBottom() >= rect2->GetEdgeTop() && //rect1 bottom past rect2 top
@@ -65,7 +67,6 @@ float MinOverlap(float a, float b, float c, float d) {
     return min;
 }
 
-
 Edge RectEntity::GetClosestEdge(RectEntity* rect1, RectEntity* rect2) {
     float overlapLeft = rect1->GetEdgeRight() - rect2->GetEdgeLeft();
     float overlapRight = rect2->GetEdgeRight() - rect1->GetEdgeLeft();
@@ -76,7 +77,15 @@ Edge RectEntity::GetClosestEdge(RectEntity* rect1, RectEntity* rect2) {
 
     // eww...
     if (minOverlap == overlapLeft) { return Edge::LEFT; }
-    if (minOverlap == overlapRight) { return Edge::RIGHT; }
     if (minOverlap == overlapTop) { return Edge::TOP; }
+    if (minOverlap == overlapRight) { return Edge::RIGHT; }
     return Edge::BOTTOM;
+}
+
+Edge RectEntity::BoundsCollision(RectEntity* rect) {
+    if (rect->position.y <= 0) return TOP;
+    if (rect->position.y >= GetScreenHeight() - rect->height) return BOTTOM;
+    if (rect->position.x <= 0) return LEFT;
+    if (rect->position.x >= GetScreenWidth() - rect->width) return RIGHT;
+    return NONE;
 }

@@ -13,12 +13,11 @@ public:
 
     void Start() override;
     void Update(float _deltaTime) override;
-    Edge BoundsCollision();
+
 
     void OnCollisionBegin(RectEntity* _otherRect) override;
     void Reset();
     void RandomizeVelocity();
-    void RandomizePosition();
 
     Ball(Vector2 _position) :
         RectEntity(_position, HEIGHT, WIDTH) {
@@ -26,5 +25,5 @@ public:
     };
 
 private:
-    void BounceOffEdge(Edge edge);
+    void BounceOffEdge(Edge _edge);
 };

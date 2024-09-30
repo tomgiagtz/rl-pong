@@ -17,7 +17,7 @@ void Paddle::Update(float _deltaTime) {
     // Implementation for updating the Paddle with delta time
     if (this->controlType == None) return;
 
-    int calcSpeed = 10 * speed * _deltaTime;
+    int calcSpeed = (int)(10.f * speed * _deltaTime);
     if (controlType == Player2 && IsKeyDown(KEY_UP)) {
         position.y -= calcSpeed;
     }

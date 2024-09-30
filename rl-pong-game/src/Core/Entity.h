@@ -11,7 +11,7 @@ public:
     }
 
     //pure virtual isn't properly overrided?
-    virtual void Update(float _deltaTime) {}
+    virtual void Update(const float _deltaTime) {}
 
 
     bool IsActive() const {

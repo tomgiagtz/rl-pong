@@ -49,6 +49,7 @@ public:
     Color GetColor() const;
     Rectangle GetRect();
     Vector2 GetCenter();
+    void RandomizePosition();
 
     float GetEdgeTop() { return position.y; }
     float GetEdgeBottom() { return position.y + height; }
@@ -68,6 +69,7 @@ public:
 
     static bool CheckRectOverlap(RectEntity* rect1, RectEntity* rect2);
     static Edge GetClosestEdge(RectEntity* rect1, RectEntity* rect2);
+    static Edge BoundsCollision(RectEntity* rect);
 
 
 };
