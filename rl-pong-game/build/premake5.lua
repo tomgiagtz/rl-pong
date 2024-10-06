@@ -101,7 +101,8 @@ workspace (workspaceName)
     location "../"
     configurations { "Debug", "Release"}
     platforms { "x64", "x86", "ARM64"}
-
+    language "C++"
+    cppdialect "C++11"
     defaultplatform ("x64")
 
     filter "configurations:Debug"
@@ -130,6 +131,7 @@ workspace (workspaceName)
         kind "ConsoleApp"
         location "build_files/"
         targetdir "../bin/%{cfg.buildcfg}"
+
 
         filter "action:vs*"
             debugdir "$(SolutionDir)"
