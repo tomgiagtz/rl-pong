@@ -397,9 +397,13 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 build_files
-raylib-master
 Makefile
 /*.sln
 .idea/*
 
 **/.DS_Store
+
+# cmake directories
+cmake-build-debug/*
+cmake-build-release/*
+external/*
