@@ -19,8 +19,23 @@ endif ()
 unset(OPENGL_VERSION CACHE)
 set(OPENGL_VERSION "3.3" CACHE STRING "Version of OpenGL to build Raylib against" FORCE)
 
+
 # Include FetchContent module for downloading external content
 include(FetchContent)
+
+set(uuidv4_dir "${CMAKE_SOURCE_DIR}/external/uuidv4-master")
+# Include uuid_v4 library
+if (NOT EXISTS "${uuidv4_dir}/CMakeLists.txt")
+    message(STATUS "UUIDv4 not found, downloading from GitHub")
+    FetchContent_Declare(
+            uuid_v4
+            GIT_REPOSITORY https://github.com/crashoz/uuid_v4.git
+            GIT_TAG master
+            SOURCE_DIR "${uuidv4_dir}"
+    )
+    FetchContent_MakeAvailable(uuid_v4)
+endif ()
+add_subdirectory("${uuidv4_dir}" "${CMAKE_CURRENT_BINARY_DIR}/uuidv4")
 
 # Set Raylib directory
 set(raylib_dir "${CMAKE_SOURCE_DIR}/external/raylib-master")
@@ -37,6 +52,7 @@ if (NOT EXISTS "${raylib_dir}/CMakeLists.txt")
     FetchContent_MakeAvailable(raylib)
 endif ()
 
+
 # Set options for Raylib
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build Raylib as a shared library" FORCE)
 set(BUILD_EXAMPLES OFF CACHE BOOL "Don't build Raylib examples" FORCE)
@@ -44,6 +60,7 @@ set(BUILD_GAMES OFF CACHE BOOL "Don't build Raylib games" FORCE)
 
 # Add Raylib to the project
 add_subdirectory("${raylib_dir}" "${CMAKE_CURRENT_BINARY_DIR}/raylib")
+
 
 # Set output directories
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}")
@@ -63,6 +80,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "${raylib_dir}/src/external"
         "${raylib_dir}/src/external/glfw/include"
 )
+target_include_directories(${PROJECT_NAME} PRIVATE "${uuidv4_dir}")
 
 # Link Raylib library
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
