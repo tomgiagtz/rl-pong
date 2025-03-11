@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "raylib.h"
+#include "DataStructures/QuadTree/QuadTreeStructs.h"
 
 
 enum Edge {
@@ -17,11 +18,13 @@ class RectEntity : public Entity {
 public:
     void Render() override;
 
-    virtual void OnCollision(RectEntity* _otherRect) {};
+    virtual void OnCollision(RectEntity* _otherRect) {
+    }
 
-    virtual void OnCollisionBegin(RectEntity* _otherRect);;
+    virtual void OnCollisionBegin(RectEntity* _otherRect);
 
-    virtual void OnCollisionEnd(RectEntity* _otherRect);;
+    virtual void OnCollisionEnd(RectEntity* _otherRect);
+    void SetColor(const Color& _color);
 
 protected:
     Vector2 position = {0, 0};
@@ -36,8 +39,6 @@ protected:
     std::set<RectEntity*> collidingEntities;
 
 public:
-    void SetColor(const Color& _color);
-
     bool HasCollision() override {
         return shouldCollide;
     }
@@ -46,15 +47,30 @@ public:
         position = _position;
     }
 
+    Position GetIntPosition() {
+        return Position({(int) position.x, (int) position.y});
+    }
+
     Color GetColor() const;
     Rectangle GetRect();
     Vector2 GetCenter();
     void RandomizePosition();
 
-    float GetEdgeTop() { return position.y; }
-    float GetEdgeBottom() { return position.y + height; }
-    float GetEdgeLeft() { return position.x; }
-    float GetEdgeRight() { return position.x + width; }
+    float GetEdgeTop() {
+        return position.y;
+    }
+
+    float GetEdgeBottom() {
+        return position.y + height;
+    }
+
+    float GetEdgeLeft() {
+        return position.x;
+    }
+
+    float GetEdgeRight() {
+        return position.x + width;
+    }
 
     int GetWidth() const {
         return width;
@@ -65,7 +81,8 @@ public:
     }
 
     RectEntity(const Vector2 _position, const int _width = 30, const int _height = 30):
-        position(_position), width(_width), height(_height) {};
+        position(_position), width(_width), height(_height) {
+    };
 
     static bool CheckRectOverlap(RectEntity* rect1, RectEntity* rect2);
     static Edge GetClosestEdge(RectEntity* rect1, RectEntity* rect2);

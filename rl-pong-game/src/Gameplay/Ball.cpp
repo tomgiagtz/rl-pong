@@ -39,7 +39,7 @@ void Ball::Reset() {
 
 void Ball::RandomizeVelocity() {
     velocity = {0.f, 1.f};
-    velocity = Vector2Rotate(velocity, (float)GetRandomValue(0, 360));
+    velocity = Vector2Rotate(velocity, (float) GetRandomValue(0, 360));
 }
 
 void Ball::BounceOffEdge(const Edge _edge) {

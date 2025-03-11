@@ -1,15 +1,15 @@
 ﻿#include "EntityManager.h"
 
 
-void EntityManager::UpdateEntities(const float _deltaTime, std::vector<RectEntity*>* _colliderEntities) {
-    for (Entity* entity : entities) {
+void EntityManager::UpdateEntities(const float _deltaTime, std::vector<RectEntity *> *_colliderEntities) {
+    for (Entity *entity : entities) {
         // std::cout << (entity->WillDestroy() ? " true" : " false") << "\n";
         // std::cout << "active" << (entity->IsActive() ? " true" : " false") << "\n";
         if (entity != nullptr && entity->IsActive() && !entity->WillDestroy()) {
             entity->Update(_deltaTime);
 
             // don't love this cast
-            RectEntity* rectEntity = dynamic_cast<RectEntity*>(entity);
+            RectEntity *rectEntity = dynamic_cast<RectEntity *>(entity);
             if (rectEntity && rectEntity->HasCollision()) {
                 _colliderEntities->push_back(rectEntity);
             }
@@ -31,7 +31,7 @@ void EntityManager::UpdateEntities(const float _deltaTime, std::vector<RectEntit
 
 void EntityManager::RenderEntities() {
     for (unsigned i = 0; i < numEntities; ++i) {
-        Entity* entity = entities[i];
+        Entity *entity = entities[i];
         if (entity == nullptr) {
             // std::cout << "BadOne" << '\n';
             throw std::runtime_error("Null Entity During Render");
@@ -43,8 +43,7 @@ void EntityManager::RenderEntities() {
 }
 
 
-
-void EntityManager::RegisterEntity(Entity* _entity, bool _manualActivate) {
+void EntityManager::RegisterEntity(Entity *_entity, bool _manualActivate) {
     entities.push_back(_entity);
     numEntities++;
 

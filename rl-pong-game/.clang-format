@@ -29,4 +29,6 @@ ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ContinuationIndentWidth: 0
 IndentWidth: 4
 NamespaceIndentation: All
+PointerAlignment: Left
+SpaceAfterCStyleCast: true
 ...
