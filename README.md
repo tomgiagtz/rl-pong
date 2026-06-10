@@ -1,10 +1,27 @@
-# rl-pong
+### Getting Started
 
-A dive into reinforcement learning and raylib with one simple goal, play pong against an RL agent.
+This project was start using [raylib-quickstart](https://github.com/raylib-extras/raylib-quickstart). See their readme for info on building this project.
 
 
-This project contains two subprojects **rl-pong-game** and **rl-pong-learn**  (subject to change)
+# Progress Updates
 
- - **rl-pong-game** is an implementation of pong made with raylib using c++ 
+## Sept 14, 2024 - **DVD video ?**
+  
+https://github.com/user-attachments/assets/3bffbb22-072c-44db-ad4a-05d62410e302
+  - entities could be generalized as rectangles.
 
- - **rl-pong-learn** uses *X* and *Y* to do *Z* 🫠
+## Sept 28, 2024 - **Collision between Rectangles**
+
+https://github.com/user-attachments/assets/7fe28a8c-5f28-4b80-8e5e-096b6859ce4d
+  - multiple colliders handled with a set
+  
+https://github.com/user-attachments/assets/ddf9fb6e-ffce-42a4-92b8-123c03dbcd79
+  - plays nice enough for pong to be playable
+
+
+## Sept 29, 2024 - **Collision between many Rectangles**
+
+https://github.com/user-attachments/assets/8ff7628e-5b6a-4512-a7ba-a8e38e3631d4
+  - collisions need a nicer resolution, balls getting stuck on each other
+  - 20 fps with 512 balls, can do better!
+
