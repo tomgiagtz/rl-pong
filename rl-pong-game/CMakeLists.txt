@@ -23,43 +23,26 @@ set(OPENGL_VERSION "3.3" CACHE STRING "Version of OpenGL to build Raylib against
 # Include FetchContent module for downloading external content
 include(FetchContent)
 
-set(uuidv4_dir "${CMAKE_SOURCE_DIR}/external/uuidv4-master")
-# Include uuid_v4 library
-if (NOT EXISTS "${uuidv4_dir}/CMakeLists.txt")
-    message(STATUS "UUIDv4 not found, downloading from GitHub")
-    FetchContent_Declare(
-            uuid_v4
-            GIT_REPOSITORY https://github.com/crashoz/uuid_v4.git
-            GIT_TAG master
-            SOURCE_DIR "${uuidv4_dir}"
-    )
-    FetchContent_MakeAvailable(uuid_v4)
-endif ()
-add_subdirectory("${uuidv4_dir}" "${CMAKE_CURRENT_BINARY_DIR}/uuidv4")
+# uuid_v4 (header-only) — fetched into the build dir's _deps
+FetchContent_Declare(
+        uuid_v4
+        GIT_REPOSITORY https://github.com/crashoz/uuid_v4.git
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(uuid_v4)
 
-# Set Raylib directory
-set(raylib_dir "${CMAKE_SOURCE_DIR}/external/raylib-master")
-
-# Download Raylib if it's not already present
-if (NOT EXISTS "${raylib_dir}/CMakeLists.txt")
-    message(STATUS "Raylib not found, downloading from GitHub")
-    FetchContent_Declare(
-            raylib
-            GIT_REPOSITORY "https://github.com/raysan5/raylib.git"
-            GIT_TAG "master"
-            SOURCE_DIR "${raylib_dir}"
-    )
-    FetchContent_MakeAvailable(raylib)
-endif ()
-
-
-# Set options for Raylib
+# Set options for Raylib (must be set before it is made available)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build Raylib as a shared library" FORCE)
 set(BUILD_EXAMPLES OFF CACHE BOOL "Don't build Raylib examples" FORCE)
 set(BUILD_GAMES OFF CACHE BOOL "Don't build Raylib games" FORCE)
 
-# Add Raylib to the project
-add_subdirectory("${raylib_dir}" "${CMAKE_CURRENT_BINARY_DIR}/raylib")
+# raylib — fetched into the build dir's _deps
+FetchContent_Declare(
+        raylib
+        GIT_REPOSITORY https://github.com/raysan5/raylib.git
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(raylib)
 
 
 # Set output directories
@@ -73,17 +56,11 @@ file(GLOB_RECURSE PROJECT_SOURCES "${CMAKE_SOURCE_DIR}/src/*.c" "${CMAKE_SOURCE_
 # Add executable target
 add_executable(${PROJECT_NAME} ${PROJECT_HEADERS} ${PROJECT_SOURCES})
 
-# Include directories
+# Include directories (raylib's headers come from the linked raylib target)
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/src" "${CMAKE_SOURCE_DIR}/include")
-target_include_directories(${PROJECT_NAME} PRIVATE
-        "${raylib_dir}/src"
-        "${raylib_dir}/src/external"
-        "${raylib_dir}/src/external/glfw/include"
-)
-target_include_directories(${PROJECT_NAME} PRIVATE "${uuidv4_dir}")
 
-# Link Raylib library
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+# Link libraries
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib uuid_v4)
 
 # Platform-specific settings
 if (MSVC)

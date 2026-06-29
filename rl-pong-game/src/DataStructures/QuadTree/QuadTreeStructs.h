@@ -72,6 +72,8 @@ struct Boundary {
         case Quadrant::SW:
             return GetSWQuadrant();
         }
+
+        return Boundary();
     }
 
 };

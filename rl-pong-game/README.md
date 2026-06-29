@@ -1,6 +1,21 @@
 ### Getting Started
 
-This project was start using [raylib-quickstart](https://github.com/raylib-extras/raylib-quickstart). See their readme for info on building this project.
+Requires [CMake](https://cmake.org/), a C/C++ compiler, and Git (raylib and uuid_v4 are
+fetched automatically on configure).
+
+```sh
+git clone https://github.com/tomgiagtz/rl-pong.git
+cd rl-pong-game
+cmake -B build && cmake --build build
+```
+
+Run the game (output goes to `bin/Debug/`):
+
+```sh
+./bin/Debug/rl-pong-game        # Windows: bin\Debug\rl-pong-game.exe
+```
+
+This project was started using [raylib-quickstart](https://github.com/raylib-extras/raylib-quickstart).
 
 
 # Progress Updates
