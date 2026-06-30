@@ -25,3 +25,16 @@ https://github.com/user-attachments/assets/8ff7628e-5b6a-4512-a7ba-a8e38e3631d4
   - collisions need a nicer resolution, balls getting stuck on each other
   - 20 fps with 512 balls, can do better!
 
+## June 29th, 2026 - **I'm baaackkk!**
+
+It's been way too long, lets get this polished and playable, in one sprint!
+Here's the current state. Previously implemented a Quad Tree to handle collisions. It's overkill but the journey into a spatial partitioning data structure was fun!
+
+https://github.com/user-attachments/assets/268ef13e-4035-4d3a-8c8f-4dc4cca62853
+
+At 128 balls this runs a consistent 60fps, but pushing to 512 and the frames are around 35-40fps.  
+
+https://github.com/user-attachments/assets/24397e9b-13c2-4f3d-87d9-1670c2d4df18
+
+I thought drawing the QuadTree boundaries would be dragging down the results. I added togggling to check this aaaand no, it doesn't make much of a difference.
+Looks like time to learn how to profile a raylib game!
