@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.14)
+﻿cmake_minimum_required(VERSION 4.1.2)
 
 # Get the project name from the current directory name
 get_filename_component(ProjectId ${CMAKE_CURRENT_SOURCE_DIR} NAME)
@@ -23,25 +23,31 @@ set(OPENGL_VERSION "3.3" CACHE STRING "Version of OpenGL to build Raylib against
 # Include FetchContent module for downloading external content
 include(FetchContent)
 
-# uuid_v4 (header-only) — fetched into the build dir's _deps
+# Pin dependencies to fixed revisions so a cache clear can't trigger an unstable re-clone, and don't
+# re-check the remotes on every reconfigure.
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
+# uuid_v4 (header-only) — pinned to a fixed commit on master
 FetchContent_Declare(
         uuid_v4
         GIT_REPOSITORY https://github.com/crashoz/uuid_v4.git
-        GIT_TAG master
+        GIT_TAG ee590705fb9058fbf1698f03f73f2250813e7b3d
 )
-FetchContent_MakeAvailable(uuid_v4)
 
 # Set options for Raylib (must be set before it is made available)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build Raylib as a shared library" FORCE)
 set(BUILD_EXAMPLES OFF CACHE BOOL "Don't build Raylib examples" FORCE)
 set(BUILD_GAMES OFF CACHE BOOL "Don't build Raylib games" FORCE)
 
-# raylib — fetched into the build dir's _deps
+# raylib — pinned to a stable release tag
 FetchContent_Declare(
         raylib
         GIT_REPOSITORY https://github.com/raysan5/raylib.git
-        GIT_TAG master
+        GIT_TAG 5.5
 )
+
+
+FetchContent_MakeAvailable(uuid_v4)
 FetchContent_MakeAvailable(raylib)
 
 
