@@ -7,9 +7,11 @@
 class QuadTreeLevel {
 
 private:
-    static constexpr int NUM_BALLS = 128;
+    static constexpr int NUM_BALLS = 512;
     Ball* balls[NUM_BALLS];
     QuadTree quadTree;
+
+    bool bDrawQuadTree = true;
 
 public:
     QuadTreeLevel():
@@ -34,8 +36,10 @@ public:
     }
 
     void Render() {
-        quadTree.Render();
-    };
+        if (bDrawQuadTree) {
+            quadTree.Render();
+        }
+    }
 
     void Update() {
         quadTree.Clear();
@@ -43,5 +47,8 @@ public:
             quadTree.Insert(ball);
         }
 
+        if (IsKeyPressed(KEY_Q)) {
+            bDrawQuadTree = !bDrawQuadTree;
+        }
     }
 };
