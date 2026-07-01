@@ -13,7 +13,6 @@ enum ControlType {
 
 class Paddle : public RectEntity {
 
-
 private:
     float speed = 50.0f;
     ControlType controlType;

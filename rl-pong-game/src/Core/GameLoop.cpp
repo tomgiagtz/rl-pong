@@ -12,8 +12,9 @@ GameLoop::GameLoop() {
     SetTargetFPS(60);
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "rl-pong");
 
-    // pongLevel.Start();
-    quadTreeLevel.Start();
+
+    pongLevel.LoadLevel();
+    // quadTreeLevel.Start();
 }
 
 void GameLoop::Render() {
@@ -21,9 +22,10 @@ void GameLoop::Render() {
 
     BeginDrawing();
     ClearBackground(GetColor(0x1b1b1b1b));
-    entityManager->RenderEntities();
 
-    quadTreeLevel.Render();
+    pongLevel.Render();
+    entityManager->RenderEntities();
+    // quadTreeLevel.Render();
 
     DrawFPS(GetScreenWidth() - 95, 10);
 
@@ -59,7 +61,7 @@ void GameLoop::Update(float _deltaTime = 0.0166666667f) {
     CalcCollisions(&colliderEntities);
     colliderEntities.clear();
     entityManager->UpdateEntities(_deltaTime, &colliderEntities);
-    quadTreeLevel.Update();
+    pongLevel.Update(_deltaTime);
     CheckExit();
 }
 
@@ -69,5 +71,5 @@ void GameLoop::CheckExit() {
 
 // game destroy before window close
 void GameLoop::Destroy() {
-    quadTreeLevel.UnloadLevel();
+    pongLevel.UnloadLevel();
 }

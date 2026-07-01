@@ -10,9 +10,9 @@ class GameLoop {
 private:
     bool isRunning = true;
     EntityManager *entityManager = &EntityManager::Instance();
-    // PongLevel pongLevel = PongLevel();
+    PongLevel pongLevel = PongLevel();
     // CollisionTestLevel collisionTestLevel = CollisionTestLevel();
-    QuadTreeLevel quadTreeLevel = QuadTreeLevel();
+    // QuadTreeLevel quadTreeLevel = QuadTreeLevel();
     std::vector<RectEntity *> colliderEntities;
 
 public:

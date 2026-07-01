@@ -18,7 +18,7 @@ public:
         return active;
     }
 
-    void SetActive(bool _active) {
+    virtual void SetActive(bool _active) {
         active = _active;
     }
 

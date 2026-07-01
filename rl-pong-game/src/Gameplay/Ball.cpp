@@ -1,4 +1,6 @@
 ﻿#include "Ball.h"
+
+#include "Paddle.h"
 #include "raymath.h"
 
 void Ball::Start() {
@@ -23,7 +25,14 @@ void Ball::Update(const float _deltaTime) {
 
 void Ball::OnCollisionBegin(RectEntity* _otherRect) {
     RectEntity::OnCollisionBegin(_otherRect);
+
+    if (dynamic_cast<Paddle*>(_otherRect) != nullptr) {
+        BounceOffPaddle(_otherRect);
+        return; // paddle bounce is authoritative; skip the generic edge flip
+    }
+
     Edge edge = GetClosestEdge(this, _otherRect);
+
 
     BounceOffEdge(edge);
 }
@@ -49,4 +58,27 @@ void Ball::BounceOffEdge(const Edge _edge) {
     if (_edge == LEFT || _edge == RIGHT) {
         velocity.x *= -1;
     }
+}
+void Ball::BounceOffPaddle(RectEntity* _paddle) {
+    // Where on the paddle's front face did we hit?
+    // offset: -1 (top corner) .. 0 (center) .. +1 (bottom corner). raylib y is down.
+    const float paddleHalfH = _paddle->GetHeight() / 2.f;
+    const float paddleCenterY = _paddle->GetEdgeTop() + paddleHalfH;
+    const float ballCenterY = GetEdgeTop() + HEIGHT / 2.f;
+    float offset = (ballCenterY - paddleCenterY) / paddleHalfH;
+    offset = Clamp(offset, -1.f, 1.f);
+
+    // Deflection magnitude scales from MIN (center) to MAX (corner); the sign of
+    // offset points it up (top) or down (bottom).
+    const float magnitudeDeg = MIN_BOUNCE_ANGLE_DEG +
+        fabsf(offset) * (MAX_BOUNCE_ANGLE_DEG - MIN_BOUNCE_ANGLE_DEG);
+    const float angle = copysignf(magnitudeDeg, offset) * DEG2RAD;
+
+    // Push the ball away from whichever side of the paddle it struck.
+    const float paddleCenterX = _paddle->GetEdgeLeft() + _paddle->GetWidth() / 2.f;
+    const float ballCenterX = GetEdgeLeft() + WIDTH / 2.f;
+    const float xSign = (ballCenterX >= paddleCenterX) ? 1.f : -1.f;
+
+    // velocity is a unit vector; `speed` supplies magnitude in Update().
+    velocity = {xSign * cosf(angle), sinf(angle)};
 }

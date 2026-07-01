@@ -10,10 +10,12 @@ private:
 public:
     static constexpr int HEIGHT = 20;
     static constexpr int WIDTH = 20;
+    // Paddle bounce deflection band: 5deg at center -> 85deg at the corners.
+    static constexpr float MIN_BOUNCE_ANGLE_DEG = 5.f;
+    static constexpr float MAX_BOUNCE_ANGLE_DEG = 85.f;
 
     void Start() override;
     void Update(float _deltaTime) override;
-
 
     void OnCollisionBegin(RectEntity* _otherRect) override;
     void Reset();
@@ -26,4 +28,5 @@ public:
 
 private:
     void BounceOffEdge(Edge _edge);
+    void BounceOffPaddle(RectEntity* _paddle);
 };
